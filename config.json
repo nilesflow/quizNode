@@ -2,6 +2,13 @@
   "//" : "HTTPポート",
   "port" : 80,
 
+  "//" : "DB情報",
+  "db" : {
+    "dbname" : "wedding",
+    "host" : "localhost",
+    "port" : 27017
+  },
+
   "//" : "残り時間",
   "secRemain" : 30,
 

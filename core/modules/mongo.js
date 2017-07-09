@@ -5,10 +5,12 @@ var ObjectID = require('mongodb').ObjectID;
 
 var instance = null;
 
-exports.getInstance = function(options) {
-  if (instance == null) {
-    instance =  new Mongo(options);
-  }
+exports.create = function(options) {
+  instance =  new Mongo(options);
+  return instance;
+}
+
+exports.getInstance = function() {
   return instance;
 }
 
@@ -20,7 +22,7 @@ class Mongo extends EventEmitter {
   constructor(options) {
     super();
 
-    this.db = new mongo.Db('wedding', new mongo.Server('localhost', 27017, {}), {});
+    this.db = new mongo.Db(options.dbname, new mongo.Server(options.host, options.port, {}), {});
   }
 
   open() {

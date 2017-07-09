@@ -13,7 +13,7 @@ class Quiz extends ExpressAppBase {
     super();
 
     // PRJ内lib
-    var mongo = Mongo.getInstance();
+    var mongo = Mongo.create(this.config.db);
     var socket = Socket.create(this.http, {
       remain : this.config.secRemain,
     });
