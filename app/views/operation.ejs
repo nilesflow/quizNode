@@ -1,0 +1,103 @@
+<html>
+<head>
+<% include ../views/header %>
+
+<script type= text/javascript>
+var socket = io();
+
+// 画面切り替え
+socket.on('display', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  // 画面切り替わった後だけ、表示
+//  console.log(id);
+//  console.log(data.id);
+  var id = '<%= question._id %>';
+  if (id == data.id) {
+    $('#areaStill').hide();
+    $('#areaQuiz').show();
+  }
+  else {
+    $('#areaStill').show();
+  }
+});
+
+// 残り時間更新
+socket.on('remain', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  $('#remain').html(data.remain);
+
+});
+
+function ajaxPost(url) {
+  var ajax = new Ajax();
+  ajax.post({
+    url : url,
+    error : function(obj) {
+      console.log(obj.message);
+      jquerymobile.popup.show(obj.message);
+    }
+  });
+}
+</script>
+</head>
+
+<body>
+<div id="home" data-role="page">
+<% include ../views/top %>
+<div role="main" class="ui-content">
+
+  <div data-role="content">
+
+    <div id="areaRemain">
+      <p>残り時間：<span id="remain"><%= locals.remain %></span>秒</p>
+    </div>
+
+    <div class="ui-field-contain">
+      <label for="content">問題：</label>
+      <%= question.content %>
+    </div>
+
+    <div class="ui-field-contain">
+      <label for="answer1">A1：</label>
+      <%= question.answer1 %>
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer2">A2：</label>
+      <%= question.answer2 %>
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer3">A3：</label>
+      <%= question.answer3 %>
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer4">A4：</label>
+      <%= question.answer4 %>
+    </div>
+
+  <button onclick="ajaxPost('/operation/<%= question._id %>/display', null);" class="ui-btn ui-corner-all">この問題を設定する</button>
+
+  <div id="areaStill" style="display:none;">
+    <p>問題を設定した後に、クイズ開始できるようになります。</p>
+  </div>
+  <div id="areaQuiz" style="display:none;">
+    <button onclick="ajaxPost('/operation/<%= question._id %>/start', null);" class="ui-btn ui-corner-all">クイズ開始</button>
+    <button onclick="ajaxPost('/operation/<%= question._id %>/answer', null);" class="ui-btn ui-corner-all">解答を表示</button>
+    <br>
+    <br>
+    <br>
+
+    ※ゲストの画面が自動で切り替わってしまうので、パーティー開始前に一度停止をお願いします。
+    <button onclick="ajaxPost('/operation/<%= question._id %>/stop', null);location.reload();" class="ui-btn ui-corner-all">クイズを停止する</button>
+  </div>
+
+  <% include ../views/popup %>
+</div>
+</div>
+
+</div>
+</body>
+</html>

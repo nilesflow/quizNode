@@ -1,0 +1,97 @@
+<html>
+<head>
+<% include ../views/header %>
+
+<script type="text/javascript">
+var socket = io();
+
+// 画面切り替え
+socket.on('display', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  // 差し替え
+  var id = '<%= question._id %>';
+  if (id != data.id) {
+    window.location.href = '/screen/' + data.id;
+  }
+});
+
+
+// 残り時間更新
+socket.on('remain', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  $('#remain').html(data.remain);
+});
+
+
+// 答え合わせ
+socket.on('answer', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  $(':hidden').each(function(){
+    var answer = $(this).val();
+    console.log(answer);
+    if (answer == data.answer) {
+      var seat = $(this).prop('name');
+      $('#correct-' + seat).show();
+    }
+  });
+});
+
+// 各卓からの答え
+socket.on('vote to screen', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  var tag = '#answer' + '-' + data.table;
+  console.log(tag);
+  $(tag).html(data.answerName);
+
+  var tag = '#answerValue' + '-' + data.table;
+  console.log(tag);
+  $(tag).val(data.answer);
+});
+</script>
+</head>
+
+<body>
+  <div id="home" data-role="page">
+    <% include ../views/top %>
+
+
+  <div data-role="content">
+    <ul data-role="listview" data-inset="true">
+      <li data-role="list-divider" class="listTitle">問題</li>
+      <li><p><%= question.content %></p></li>
+    </ul>
+
+    <div id="areaRemain">
+      <p>残り時間：<span id="remain"><%= locals.remain %></span>秒</p>
+    </div>
+    
+    <div id="screenAnswer">
+      <% seats.forEach(function(seat, key){ %>
+        <div class="screenSeat">
+          <div class="screenTile tileSeat"><p><%= seat.name %></p></div>
+          <div class="screenTile tileAnswer">
+            <p><span id="answer-<%= seat.key %>" class="answer">未回答</span>
+            <input type="hidden" id="answerValue-<%= seat.key %>" name="<%= seat.key %>" />
+            <span id="correct-<%= seat.key %>" class="correct" style="display:none;">〇</span></p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+
+  <div data-role="content" id="result">
+  </div>
+
+</div>
+</body>
+</html>
+

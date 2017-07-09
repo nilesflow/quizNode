@@ -1,0 +1,13 @@
+<script type= text/javascript>
+var jquerymobile = {};
+jquerymobile.popup = {};
+jquerymobile.popup.show = function(message) {
+  $('#popupMessage').html(message);
+  $('#popupLink').click();
+}
+</script>
+
+<a href="#popup" data-rel="popup" id="popupLink"></a>
+<div id="popup" data-role="popup" data-position-to="window">
+  <p id="popupMessage">aaa</p>
+</div>

@@ -1,0 +1,55 @@
+<html>
+<head>
+<% include ../views/header %>
+</head>
+
+<body>
+<div id="home" data-role="page">
+<% include ../views/top %>
+
+<div role="main" class="ui-content">
+
+  <form action="/question/<%= question._id %>/regist" method="post" data-ajax="false">
+    <div class="ui-field-contain">
+      <label for="content">問題：</label>
+      <textarea id="content" name="content"><%= question.content %></textarea>
+    </div>
+
+    <div class="ui-field-contain">
+      <label for="answer1">A1：</label>
+      <input type="text" name="answer1" value="<%= question.answer1 %>">
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer2">A2：</label>
+      <input type="text" name="answer2" value="<%= question.answer2 %>">
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer3">A3：</label>
+      <input type="text" name="answer3" value="<%= question.answer3 %>">
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer4">A4：</label>
+      <input type="text" name="answer4" value="<%= question.answer4 %>">
+    </div>
+    <div class="ui-field-contain">
+      <label for="answer">答え(1～4)：</label>
+      <input type="number" name="answer" value="<%= question.answer %>">
+    </div>
+    <div class="ui-field-contain">
+      <label for="sort">順序：</label>
+      <input type="number" name="sort" value="<%= question.sort %>" >
+    </div>
+    <button class="ui-btn ui-corner-all">登録</button>
+  </form>
+
+  <% if (question._id != 'new') { %>
+    <form action="/question/<%= question._id %>/remove" method="post" data-ajax="false">
+    <button class="ui-btn ui-corner-all">削除</button>
+    </form>
+  <% } %>
+</div>
+</div>
+
+</div>
+</body>
+</html>

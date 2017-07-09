@@ -1,0 +1,91 @@
+<html>
+<head>
+<% include ../views/header %>
+
+<script type= text/javascript>
+var socket = io();
+
+// 画面切り替え
+socket.on('display', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  // 差し替え
+  var id = '<%= question._id %>';
+  if (id != data.id) {
+    window.location.href = '/vote/' + data.id + '?seat=<%= seat._id %>';
+  }
+});
+
+// 残り時間更新
+socket.on('remain', function(json){
+  console.log(json);
+  var data = JSON.parse(json);
+
+  $('#remain').html(data.remain);
+});
+
+socket.on('warning', function(json){
+  var data = JSON.parse(json);
+  console.log(data.message);
+
+  jquerymobile.popup.show(data.message);
+});
+
+// ユーザの解答
+function vote(answer) {
+  var data = {
+    'id' : '<%= question._id %>',
+    'table' : '<%= seat.key %>',
+    'answer' : answer,
+  };
+  var json = JSON.stringify(data);
+  socket.emit('vote', json);
+  console.log(json);
+}
+</script>
+</head>
+
+<body>
+
+<div id="home" data-role="page">
+<% if (question._id) { %>
+  <% include ../views/top %>
+<% } else { %> 
+  <div data-role="header" data-theme="a">
+   <h1>Coming Soon..</h1>
+  </div>
+<% } %>
+
+<div data-role="content" class="">
+  <p><%= seat.name %>様</p>
+
+<% if (question._id) { %>
+  <ul data-role="listview" data-inset="true">
+    <li data-role="list-divider" class="listTitle">問題</li>
+    <li><p><%= question.content %></p></li>
+  </ul>
+
+  <div id="areaRemain">
+    <p>残り時間：<span id="remain"><%= locals.remain %></span>秒</p>
+  </div>
+
+  <button class="ui-btn ui-shadow" onclick="vote(1)"><%= question.answer1 %></button>
+  <button class="ui-btn ui-shadow" onclick="vote(2)"><%= question.answer2 %></button>
+  <button class="ui-btn ui-shadow" onclick="vote(3)"><%= question.answer3 %></button>
+  <button class="ui-btn ui-shadow" onclick="vote(4)"><%= question.answer4 %></button>
+
+  <% include ../views/popup %>
+<% } else { %> 
+  <br>
+  <br>
+  パーティー中に案内があるまでお待ちください。
+<% } %>
+</div>
+
+<div data-role="content" id="result">
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<head>
+<% include ../views/header %>
+</head>
+
+<body>
+<div id="home" data-role="page">
+<% include ../views/top %>
+
+<div role="main" class="ui-content">
+
+  <form action="/seat/<%= seat._id %>/regist" method="post" data-ajax="false">
+    <div class="ui-field-contain">
+      <label for="content">卓席名（山の名前）：</label>
+      <textarea id="name" name="name"><%= seat.name %></textarea>
+    </div>
+
+    <div class="ui-field-contain">
+      <label for="key">卓席名（A～）</label>
+      <input type="text" name="key" value="<%= seat.key %>">
+    </div>
+    <div class="ui-field-contain">
+      <label for="sort">順序：</label>
+      <input type="number" name="sort" value="<%= seat.sort %>" >
+    </div>
+    <button class="ui-btn ui-corner-all">登録</button>
+  </form>
+
+  <% if (seat._id != 'new') { %>
+    <form action="/seat/<%= seat._id %>/remove" method="post" data-ajax="false">
+    <button class="ui-btn ui-corner-all">削除</button>
+    </form>
+  <% } %>
+</div>
+</div>
+
+</div>
+</body>
+</html>

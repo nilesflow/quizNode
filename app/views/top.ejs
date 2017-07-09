@@ -1,0 +1,9 @@
+<div data-role="header" data-theme="a">
+ <h1><%= locals.view.strTitle %></h1>
+ 
+ <% if (locals.backpage) { %>
+   <a href="<%= locals.backpage %>">戻る</a>
+ <% } else if (locals.back) { %>
+   <a href="" data-rel="back">戻る</a>
+ <% } %>
+</div>

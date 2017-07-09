@@ -1,0 +1,47 @@
+<html>
+<head>
+<% include ../views/header %>
+</head>
+
+<body>
+<div id="home" data-role="page">
+<% include ../views/top %>
+
+<div role="main" class="ui-content">
+
+  <div data-role="content">
+    <p>会場スクリーンに表示する画面です。プロジェクターのPCで選択してください。</p>
+    <a href="/screen" class="ui-btn ui-corner-all">スクリーン用画面表示</a>
+  </div>
+
+  <div data-role="content">
+    <p>問題の開始等の操作をする画面です。進行用のPCで操作してください。</p>
+    <a href="/control" class="ui-btn ui-corner-all">問題操作</a>
+  </div>
+
+  <div data-role="content">
+    <p>※以下に関しては、当日は使用しません。</p>
+  </div>
+
+  <div data-role="content">
+    <p>卓席毎のURLを表示します。QRコード生成に使用します。</p>
+    <a href="/urls" class="ui-btn ui-corner-all">URL発行</a>
+  </div>
+
+  <div data-role="content">
+    <p>卓席の名前を編集する画面です。</p>
+    <a href="/seats" class="ui-btn ui-corner-all">卓席登録・編集</a>
+  </div>
+
+  <div data-role="content">
+    <p>問題登録用の画面です。</p>
+    <a href="/questions" class="ui-btn ui-corner-all">問題登録・編集</a>
+  </div>
+
+
+</div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+/*
+#precedence.ui-bar-a {
+  background: blue;
+}
+*/
+
+p {
+    color: #404040;
+    font-size: 22px !important;
+    margin: 0;
+}
+button {
+    font-size: 22px !important;
+}
+
+/* 問題 */
+.ui-listview li p {
+    margin: 0px;
+    white-space: normal;
+}
+
+/*
+ *
+ */
+.alignCenter p {
+    text-align: center;
+}
+.listTitle {
+    font-size: 16px !important;
+}
+
+/*
+ * 共通：残り時間
+ */
+#areaRemain {
+    margin: 20px 0px;
+}
+#remain {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 10px;
+}
+
+
+/*
+ * スクリーン画面
+ */
+#screenAnswer {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.screenSeat {
+    float: left;
+    width: 50%;
+}
+.screenTile {
+    float: left;
+    border: solid 3px #ffffff;
+    padding: 5px 10px;
+    line-height: 50px;
+}
+.tileSeat {
+    float: left;
+    width: 118px;
+    height: 50px;
+    background-color: #c2e6c2;
+}
+.tileSeat p {
+    color: #000000;
+    font-weight: normal;
+}
+.tileAnswer {
+    float: left;
+    height: 50px;
+    padding-left: 30px;
+}
+.tileAnswer p {
+    position: relative;
+
+    font-size: 33px !important;
+    line-height: 50px;
+}
+
+.answer {
+    display: block;
+    position: relative;
+    max-width: 285px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.correct {
+    display: block;
+    position: absolute;
+
+    top: 3px;
+    padding-left: 19px;
+
+    font-size: 60px;
+    color: red;
+    font-weight: bold;
+}

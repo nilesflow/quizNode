@@ -1,0 +1,22 @@
+<html>
+<head>
+<% include ../views/header %>
+</head>
+
+<body>
+<div id="home" data-role="page">
+<% include ../views/top %>
+
+<ul data-role="listview">
+  <% questions.forEach(function(question, key){ %>
+  <li><a href="/operation/<%- question._id%>" data-ajax="false">Q<%= key + 1 %> <%- question.content%></a></li>
+  <% }); %>
+</ul>
+
+
+<div data-role="content" id="result">
+</div>
+
+</div>
+</body>
+</html>
