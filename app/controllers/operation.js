@@ -57,8 +57,12 @@ class Operation extends Base {
     }
 
     // DBから回答情報を取得
-    self.questions.findOne(req.params.id, function(question){
+    console.log(req.params.id);
+    self.mQuestions.findOne(req.params.id, function(question){
       console.log(question);
+      if (question == null) {
+        return;
+      }
 
       // 回答情報を付与して、各画面へ
       var data = {
